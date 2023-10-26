@@ -673,6 +673,7 @@ class APIRequestor:
             "data": data,
             "proxy": _aiohttp_proxies_arg(openai.proxy),
             "timeout": timeout,
+            "ssl": False,
         }
         try:
             result = await session.request(**request_kwargs)
@@ -790,7 +791,7 @@ class AioHTTPSession(AsyncContextManager):
             self._should_close_session = True
 
         return self._session
-    
+
     async def __aexit__(self, exc_type, exc_value, traceback):
         if self._session is None:
             raise RuntimeError("Session is not initialized")
